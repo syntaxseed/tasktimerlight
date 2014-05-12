@@ -1,0 +1,348 @@
+@charset "UTF-8";
+/* CSS Document */
+
+html {
+	height:100%;	
+}
+
+body {
+	height:100%;
+	font:90% Arial, Helvetica, sans-serif;
+ 	/* Note: background color is determined by theme style sheets. */
+	margin:0;
+	padding:0;	
+}
+
+.wrapper {
+	width:1000px;
+	height:100%;
+	margin:0 auto;	
+}
+
+.wrapper #main {
+	width:747px;
+	height:100%;
+	float:left;	
+}
+
+.wrapper #main #head {
+ 	width:747px;
+	height:76px;
+	margin:50px 0 5px 0;
+	background-image:url(../images/ttl_head.png);
+}
+
+.wrapper #main h2 {
+	margin:5px 20px 2px 20px;
+	color:#2a2b2f;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:20pt;
+	font-weight:100;
+	letter-spacing:1px;
+}
+
+	.wrapper #main #sub-head {
+		width:100%;
+		height:50px;
+		margin-top:0;
+		background-color:#5a5a5c;
+		background-image:url(../images/ttl_subhead.png);
+		background-repeat:no-repeat;
+		background-position:left;	
+	}
+		.wrapper #main #sub-head p {
+			visibility:hidden;
+		}
+		
+/*---------- ADD TASK FORM ----------- */
+
+form#add-task {
+	float:right;
+	margin-right:32px;
+	margin-top:6px;
+	background-color:#2a2b2f;
+}
+fieldset.newtask {
+   width:229x; height:38px;
+   border:0;
+   padding: 0; margin: 0;
+   background:url(../images/ttl_search.png) no-repeat;
+}
+.newtask input {
+  	border: none;
+  	float: left;
+ 	padding: 0; 
+	margin: 0;
+}
+.newtask button {
+  	border: none;
+  	float: right;
+  	padding: 0; margin: 0;
+}
+.newtask label { display: none; }
+.newtask input.tbox {
+  	color:#2a2b2f;
+  	font-family:Arial, Helvetica, sans-serif;
+	font-size:1.2em;
+	letter-spacing:1px;
+	margin:9px 10px;
+  	background: transparent;
+  	width:174px;
+}
+.newtask button.btn {
+  	width:37px;
+  	height:38px;
+  	cursor:pointer;
+  	text-indent:-9999px;
+  	background:#fbc900 url(../images/ttl_search.png) no-repeat top right;
+}
+
+/*------ CONTENT AND FOOTER ----------*/
+
+	.wrapper #main #content {
+		margin:0 auto;
+		width:723px;
+		background-color:#fff;
+		min-height:500px;
+	}
+	
+	.wrapper #main #footer {
+		margin:0 auto;
+		padding:5px 10px;
+		width:703px;
+		background-color:#CCC;
+		min-height:70px;	
+	}
+	
+		.wrapper #main #footer p {
+			color:#2a2b2f;
+			font-family:Arial, Helvetica, sans-serif;
+			font-size:85%;
+			line-height:110%;
+		}
+	
+		.wrapper #main #footer a {
+			color:#5a5a5c;
+		}
+        .wrapper #main #footer .toplink{
+            float: right;
+        }
+		
+		
+/*----------- Timers ----------------*/
+
+.wrapper #main #content #timers {
+	margin:0;
+	padding:1px;
+}
+
+ul.archive {
+	margin: 10px 30px 30px 20px;
+	padding: 0;
+	border-top: 1px solid #eeeeee;
+}
+ul.archive li {
+	margin: 0;
+	padding: 4px 5px 4px 5px;
+	border-bottom: 1px solid #eeeeee;
+	list-style: none;
+}
+ul.archive li div.timer-title {
+	background-image:url(../images/ttl_timer_icon.png);
+	background-repeat:no-repeat;
+	background-position:left center;
+	margin: 0;	padding:2px 0 5px 40px;
+	font-size: 1.5em;
+	font-weight: bold;
+	/*color: #5a5a5c;*/
+	color:#000;
+}
+
+ul.archive li .timer-details {
+	margin-left: 0;
+	margin-top: 0;
+	font-size: .8em;
+	color:#5a5a5c;
+}
+ul.archive li .timer-details a {
+   color: #1372a8;
+}
+
+div.timer-buttons{
+	float:right;
+	display:inline-block;
+	width:200px;
+}
+
+div.timer-buttons div.button a {
+	float:right;
+	display:block;
+	margin:6px 8px 0 0;
+	padding:5px 7px;
+	text-transform:lowercase;
+	text-decoration:none;
+	font-size:1.4em;
+	font-weight:bold;
+	font-size:1em;
+	color: #fff;
+  	cursor:pointer;
+}	
+
+div.timer-buttons div.starton a {
+	background:#5fb9bb;/*#2a2b2f;*/
+}
+
+div.timer-buttons div.stopon a {
+	background:#e2506f;/*#ee9f42;*/
+}
+
+div.timer-buttons div.logon a {
+	background:#ee9f42;/*#5fb9bb;*/
+}
+
+div.timer-buttons div.starton a:hover,
+div.timer-buttons div.stopon a:hover,
+div.timer-buttons div.logon a:hover{
+   background: #000000;/*#e2506f;*/
+}
+
+div.timer-data{
+	float:right;
+	display:inline-block;
+	width:120px;
+	text-align:center;
+}
+
+div.timer-data  div.timercount{
+	color:#2a2b2f;
+	font-size:1.3em;
+	font-weight:bold;
+	padding-top:8px;
+}
+
+div.timer-data  div.timeroptions {
+	margin-top:10px;
+}
+div.timer-data  div.timeroptions a {
+	color:#666666;
+	font-size:10pt;
+	text-decoration:underline;
+	cursor:pointer;
+}
+
+
+div.timer-buttons div.waitmsg{
+	float:right;
+	margin-top:15px;
+	margin-right:10px;
+	color:#999999;
+
+}
+
+a.deletelink{
+	color:#9b9b9c;
+	margin-left:10px;
+	font-weight:bold;
+	text-decoration:none;
+	cursor:pointer;
+}		
+	
+/*----------- SIDEBAR ----------------*/
+
+.wrapper #sidebar {
+	/*position:absolute; for browsers that don't support fixed scroll */
+	width:189px;
+	height:100%;	
+	float:right;
+	background-color:#2a2b2f;
+}
+
+/* body > .wrapper #fixed {
+    position: fixed;
+} */
+
+	.wrapper #sidebar #refresh {
+		width:110px;
+		height:42px;
+		background-image:url(../images/ttl_refresh.png);
+		background-repeat:no-repeat;
+		margin-left:79px;
+	}
+		.wrapper #sidebar #refresh:hover {
+			cursor:pointer;
+			background-image:;
+		}
+	
+	.wrapper #sidebar #personalize {
+		width:189px;
+		height:28px;
+		margin-top:10px;
+		background-image:url(../images/ttl_personalize.png)
+	}
+	
+	.wrapper #sidebar #colors {
+		width:189px;
+		height:47px;	
+	}
+		.wrapper #sidebar #colors #teal {
+			width:47px;
+			height:47px;
+			background-color:#5fb9bb;
+			cursor:pointer;
+			float:right;	
+			margin-right:8px;
+		}
+		
+		.wrapper #sidebar #colors #pink {
+			width:47px;
+			height:47px;
+			background-color:#e2506f;
+			cursor:pointer;	
+			float:right;
+			margin-right:8px;
+		}
+		
+		.wrapper #sidebar #colors #orange {
+			width:47px;
+			height:47px;
+			background-color:#ee9f42;
+			cursor:pointer;	
+			float:right;
+			margin-right:15px;
+		}
+	.wrapper #sidebar #colors a{
+            color:#9b9b9c;
+            margin-left:17px;
+            text-decoration:none;
+            font-size:0.8em;
+            cursor:pointer;
+        }
+
+	.wrapper #sidebar #about {
+		margin:60px 0 0 0;
+		padding:25px 18px 0 18px;
+		background-image:url(../images/ttl_about.png);
+		background-position:top left;
+		background-repeat:no-repeat;
+		color:#9b9b9c;
+		font-family:Arial, Helvetica, sans-serif;
+	}
+	
+	.wrapper #sidebar #version {
+		margin:35px 0 0 0;
+		padding:52px 18px;
+		background-image:url(../images/ttl_version.png);
+		background-position:top left;
+		background-repeat:no-repeat;
+		color:#9b9b9c;
+		font-family:Arial, Helvetica, sans-serif;
+	}
+		
+
+/*----------- FONTS ----------------*/
+
+/*
+@font-face {
+font-family:Coolvetica;
+src: url("assets/fonts/coolveticarg.ttf") format("truetype");
+}*/
