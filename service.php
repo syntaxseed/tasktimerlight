@@ -9,127 +9,116 @@ $allTimers = null;
 // ******* Process Requests ********
 $action = $_POST['action'];
 
-if($action == "update"){
+if ($action == "update") {
+    $allTimers = loadTimers(true);
+    //if(is_null($allTimers)){   // TODO - handle error versus no records.
+    //	echo("error001");
+    //	exit;
+    //}
 
-	$allTimers = loadTimers(true);
-	//if(is_null($allTimers)){   // TODO - handle error versus no records.
-	//	echo("error001");
-	//	exit;
-	//}
-	
-	$arrayId = intval($_POST['id']);
-	$inputStr = $_POST['input'];
-	if( get_magic_quotes_gpc()){
-		$inputStr = stripslashes($inputStr);
-	}
+    $arrayId = intval($_POST['id']);
+    $inputStr = $_POST['input'];
+    if (get_magic_quotes_gpc()) {
+        $inputStr = stripslashes($inputStr);
+    }
 
-	$timer = json_decode($inputStr, true);
+    $timer = json_decode($inputStr, true);
 
-	if( is_null($timer['recordid']) ){
-		// Adding a new timer
-		$timer['recordid'] = ++$GLOBALS['maxrecord'];
-		
-	}	
-	$allTimers["".$timer['recordid']] = $timer;
-	
-
-	$status = saveTimers($allTimers);
-	if(is_null($status)){
-		echo("error002");
-		exit;
-	}	
-
-	echo($arrayId."|".$timer['recordid']);
+    if (is_null($timer['recordid'])) {
+        // Adding a new timer
+        $timer['recordid'] = ++$GLOBALS['maxrecord'];
+    }
+    $allTimers["".$timer['recordid']] = $timer;
 
 
-}elseif($action == "delete"){
+    $status = saveTimers($allTimers);
+    if (is_null($status)) {
+        echo("error002");
+        exit;
+    }
 
-	$allTimers = loadTimers(true);
-	//if(is_null($allTimers)){   // TODO - handle error versus no records.
-	//	echo("error001");
-	//	exit;
-	//}
-	
-	$recordid = intval($_POST['recordid']);
+    echo($arrayId."|".$timer['recordid']);
+} elseif ($action == "delete") {
+    $allTimers = loadTimers(true);
+    //if(is_null($allTimers)){   // TODO - handle error versus no records.
+    //	echo("error001");
+    //	exit;
+    //}
 
-	if( is_null($allTimers[$recordid]) ){
-		echo("error004"); // Record not found.
-		exit;
-	}
-	
-	$allTimers[$recordid] = null;
+    $recordid = intval($_POST['recordid']);
 
-	$status = saveTimers($allTimers);
-	if(is_null($status)){
-		echo("error002");
-		exit;
-	}
+    if (is_null($allTimers[$recordid])) {
+        echo("error004"); // Record not found.
+        exit;
+    }
 
-	echo($recordid);
-		
-}elseif($action == "retrieve"){
+    $allTimers[$recordid] = null;
 
-	$allTimers = loadTimers(false);
-	if(is_null($allTimers)){
-		//echo("error003"); // TODO = handle error versus no records.
-		exit;
-	}
-	
-	echo( json_encode($allTimers));
+    $status = saveTimers($allTimers);
+    if (is_null($status)) {
+        echo("error002");
+        exit;
+    }
 
+    echo($recordid);
+} elseif ($action == "retrieve") {
+    $allTimers = loadTimers(false);
+    if (is_null($allTimers)) {
+        //echo("error003"); // TODO = handle error versus no records.
+        exit;
+    }
 
-}else{
-	echo("error999");
+    echo(json_encode($allTimers));
+} else {
+    echo("error999");
 }
 
-function loadTimers($useRecordIndex){
+function loadTimers($useRecordIndex)
+{
+    $datFile = "timers.dat";
+    $fh = fopen($datFile, 'r');
 
-	$datFile = "timers.dat";
-	$fh = fopen($datFile, 'r');
+    $allTimers = null;
+    $i = 0;
 
-	$allTimers = null;
-	$i = 0;
-
-	if ($fh) {
-		while (!feof($fh)) {
-			$line = trim(fgets($fh));
-			if(!empty($line)){
-				$record = explode(":", $line, 2);
-				if($useRecordIndex){
-					$index = "".$record[0];
-				}else{
-					$index = $i++;
-				}
-				$allTimers[$index] = json_decode($record[1], true);
-				if($record[0] > $GLOBALS['maxrecord'] ){
-					$GLOBALS['maxrecord']  = $record[0];
-				}
-			}
-		}
-		fclose($fh);
-	}
-	return($allTimers);
+    if ($fh) {
+        while (!feof($fh)) {
+            $line = trim(fgets($fh));
+            if (!empty($line)) {
+                $record = explode(":", $line, 2);
+                if ($useRecordIndex) {
+                    $index = "".$record[0];
+                } else {
+                    $index = $i++;
+                }
+                $allTimers[$index] = json_decode($record[1], true);
+                if ($record[0] > $GLOBALS['maxrecord']) {
+                    $GLOBALS['maxrecord']  = $record[0];
+                }
+            }
+        }
+        fclose($fh);
+    }
+    return($allTimers);
 }
 
-function saveTimers($allTimers){
+function saveTimers($allTimers)
+{
+    $datFile = "timers.dat";
+    $fh = fopen($datFile, 'w');
+    $status = 1;
 
-	$datFile = "timers.dat";
-	$fh = fopen($datFile, 'w');
-	$status = 1;
-
-	if ($fh) {
-		foreach ($allTimers as $recid => $record) {
-			if(!is_null($record)){
-				$line = $recid.":".json_encode($record)."\n";
-				$fwrite = fwrite($fh, $line);
-				if ($fwrite === false) {
-					$status = null;
-				}
-			}
-		}
-		fclose($fh);
-	}
-	return($status);
+    if ($fh) {
+        foreach ($allTimers as $recid => $record) {
+            if (!is_null($record)) {
+                $line = $recid.":".json_encode($record)."\n";
+                $fwrite = fwrite($fh, $line);
+                if ($fwrite === false) {
+                    $status = null;
+                }
+            }
+        }
+        fclose($fh);
+    }
+    return($status);
 }
-
-?>

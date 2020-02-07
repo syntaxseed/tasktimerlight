@@ -4,7 +4,6 @@ Instructions - Task Timer Light - v 1.0b1 (Beta)
 Author
 ---------------------
 Sherri Wheeler  (SyntaxSeed.com)
-Email: avdeveloper at users dot sourceforge dot net
 Project Info: http://syntaxseed.com/project/tasktimerlight/
 
 
@@ -45,7 +44,7 @@ Installation (Server)
 -----------------------
 - Extract the project archive to a webserver with PHP 5.2+.
 - Ensure that the file timers.dat is writeable by the web server user running PHP (chmod 755 or 777).
-- Open the file tasktimerlight/assets/js/tasktimerlight.js and set the variables in the configuration section. 
+- Open the file tasktimerlight/assets/js/tasktimerlight.js and set the variables in the configuration section.
    - (savingEnabled should be true, and serviceURL should be the web URL to the service.php file).
 - Visit the index.html page in your browser.
    - Such as: http://www.example.com/tasktimerlight/index.html
