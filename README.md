@@ -28,7 +28,7 @@ Features
 
 Requirements (Server)
 ----------------------
-- PHP 5 >= 5.2.0, PECL json >= 1.2.0
+- PHP 7+
 - Ability for a php script to write to a file on the web server.
 
 
@@ -42,7 +42,7 @@ Installation (Local)
 
 Installation (Server)
 -----------------------
-- Extract the project archive to a webserver with PHP 5.2+.
+- Extract the project archive to a webserver with PHP 7.2+.
 - Ensure that the file timers.dat is writeable by the web server user running PHP (chmod 755 or 777).
 - Open the file tasktimerlight/assets/js/tasktimerlight.js and set the variables in the configuration section.
    - (savingEnabled should be true, and serviceURL should be the web URL to the service.php file).
