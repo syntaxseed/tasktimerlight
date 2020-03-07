@@ -18,9 +18,6 @@ if ($action == "update") {
 
     $arrayId = intval($_POST['id']);
     $inputStr = $_POST['input'];
-    if (get_magic_quotes_gpc()) {
-        $inputStr = stripslashes($inputStr);
-    }
 
     $timer = json_decode($inputStr, true);
 

@@ -9,6 +9,7 @@
 
 var savingEnabled = false;	// Indicates whether to use AJAX to save and load timer date to a file on a webserver (Note: to use AJAX, the whole application must be on your webserver, not your local computer).
 var serviceURL = "http://www.example.com/tasktimerlight/service.php";	// URL to the AJAX service.
+//var serviceURL = "http://localhost:8000/service.php";	// URL to the AJAX service.
 var serviceTimeout = 5000;  // Number of miliseconds to wait for requests to the server to be returned.
 
 // ----------------------------------------------
@@ -59,7 +60,7 @@ if( savingEnabled ){
          request = new ActiveXObject("Microsoft.XMLHTTP");
        } catch (failed) {
          request = false;
-       }  
+       }
      }
    }
 
@@ -76,7 +77,7 @@ function initPage(){
 		loadTimers();
 	}else{
 		initTimers();
-		updateTimes();		
+		updateTimes();
 	}
 	initTheme();
 }
@@ -90,7 +91,7 @@ function changeTheme(themename)
     var a;
 
     if(linkElements.length > 1){
-        
+
         for(var i=0; i < linkElements.length; i++){
             a = linkElements[i];
             if( (a.getAttribute("rel").indexOf("style") != -1) && a.getAttribute("title") && (a.getAttribute("title").indexOf("theme") != -1) ) {
@@ -109,14 +110,14 @@ function initTheme(){
     if(savedTheme == "" | !themeList[savedTheme]){
         savedTheme = 'grey';
     }
-    changeTheme(savedTheme); 
+    changeTheme(savedTheme);
 
 }
 
 
 // Loop through all timers and add them to the page then configure the display.
 function initTimers()
-{		
+{
 	for(var i in allTimers){
 		addTimerToList(i);
 		initTimer(i);
@@ -128,16 +129,16 @@ function initTimers()
 function initTimer(id){
 
 	if(allTimers[id]["started"]){
-		document.getElementById('stopbutton'+id).style.display = "";				
+		document.getElementById('stopbutton'+id).style.display = "";
 		activeTimers++;
 	}else{
 		document.getElementById('startbutton'+id).style.display = "";
 	}
-	
+
 	if(allTimers[id]["stopped"]){
 		document.getElementById('startbutton'+id).style.display = "";
         }
-	
+
 	document.getElementById('loggedtime'+id).innerHTML = getLoggedTimeStr(allTimers[id]["loggedtime"]);
 	document.getElementById('lastlogged'+id).innerHTML = allTimers[id]["lastlogged"];
 
@@ -173,11 +174,11 @@ function addTimerToList(id){
 function updateTimes(){
 
 	if(activeTimers>0){
-		for(var i in allTimers){			
+		for(var i in allTimers){
 			if(allTimers[i]!=null && allTimers[i]["started"]){
 				document.getElementById('timerdata'+i).innerHTML = getTimeStr(allTimers[i]["starttime"], allTimers[i]["accumulated"]);
 			}
-		}	
+		}
 		setTimeout ( "updateTimes()", timeInterval );
 	}
 
@@ -195,7 +196,7 @@ function saveTimerToServer(id){
 	params = params + "&id="+id;
 
 	request.open("POST", serviceURL, true);
-	
+
 	//Send the proper header information along with the request
 	request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	request.setRequestHeader("Content-length", params.length);
@@ -234,11 +235,11 @@ function ajaxTimeout(){
 function loadTimers(){
 
 	document.getElementById("loadingtimersmsg").style.display = "";
-	
+
 	var params = "action=retrieve";
-	
+
 	request.open("POST", serviceURL, true);
-	
+
 	//Send the proper header information along with the request
 	request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	request.setRequestHeader("Content-length", params.length);
@@ -255,13 +256,13 @@ function loadingComplete() {
 			clearTimeout(timeout);
 			var arrayJSON = request.responseText;
 			if( arrayJSON.substr(0,5) != "error" && arrayJSON != ""){
-			
+
 				allTimers = eval('(' + arrayJSON + ')');
-			
+
 				document.getElementById("loadingtimersmsg").style.display = "none";
 				initTimers();
 				updateTimes();
-				
+
 			}else if(arrayJSON == ""){
 				allTimers = [];
 				document.getElementById("loadingtimersmsg").style.display = "none";
@@ -279,18 +280,18 @@ function deleteTimer(id){
 	if( (!savingEnabled) || (allTimers[id]['recordid']==null) ){
 		removeTimer(id); // No server-side saving. Only need to remove it from the page and local array.
 	}else{
-	
+
 		document.getElementById("pleasewait"+id).style.display = "";
-		
-		var params = "action=delete&recordid="+allTimers[id]['recordid'];		
+
+		var params = "action=delete&recordid="+allTimers[id]['recordid'];
 		request.open("POST", serviceURL, true);
-		
+
 		//Send the proper header information along with the request
 		request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		request.setRequestHeader("Content-length", params.length);
 		request.setRequestHeader("Connection", "close");
 
-		request.onreadystatechange = function() { 
+		request.onreadystatechange = function() {
 					if (request.readyState==4){
 						if (request.status==200){
 							deletingComplete(id);
@@ -303,7 +304,7 @@ function deleteTimer(id){
 }
 function deletingComplete(arrayid) {
 
-	if (request.readyState == 4){		
+	if (request.readyState == 4){
 		if (request.status == 200){
 			clearTimeout(timeout);
 			var id = request.responseText;
@@ -313,7 +314,7 @@ function deletingComplete(arrayid) {
 					document.getElementById("pleasewait"+arrayid).style.display = "none";
 				}else{
 					alert("Error: Invalid AJAX Response. The delete request for a timer returned an invalid response: "+id);
-				}				
+				}
 			}else{
 				alert("Error: Invalid AJAX Response. The delete request for a timer returned an invalid response: "+id);
 			}
@@ -328,18 +329,18 @@ function removeTimer(arrayid){
 
 // Get a formatted string of the current accumulated time in hours, minutes, seconds.
 function getTimeStr(startSeconds, accumulatedSeconds){
-	
+
 	var dt = new Date();
 	var nowSeconds = Math.floor(dt.getTime()/1000);
-	
+
 	var secondsElapsed = (nowSeconds - startSeconds) + accumulatedSeconds;
-	
+
 	var hours = Math.floor(secondsElapsed / (60*60));
 	secondsElapsed = secondsElapsed % (60*60);
-	
+
 	var minutes = Math.floor(secondsElapsed / (60));
 	var seconds = secondsElapsed % 60;
-	
+
 	return(hours+"h "+minutes+"m "+seconds+"s");
 }
 
@@ -350,7 +351,7 @@ function getLoggedTimeStr(seconds){
 	}
 	if(seconds < 60*60){
 		return ( Math.floor(seconds/60)+" minutes" );
-	}	
+	}
 	return( (Math.round((seconds/(60*60))*10)/10) + " hours");
 }
 
@@ -359,22 +360,22 @@ function startTimer(id){
 
 	var dt = new Date();
 	var nowSeconds = Math.floor(dt.getTime()/1000);
-	
+
 	allTimers[id]["started"] = true;
 	allTimers[id]["starttime"] = nowSeconds;
-	
+
 	document.getElementById('logbutton'+id).style.display = "none";
 	document.getElementById('timeroptions'+id).style.display = "none";
 	document.getElementById('startbutton'+id).style.display = "none";
 	document.getElementById('stopbutton'+id).style.display = "";
-			
+
 	allTimers[id]["stopped"] = false;
-	
+
 	activeTimers++;
-	
-	if(activeTimers==1){ // We have started the first timer!			
+
+	if(activeTimers==1){ // We have started the first timer!
 		setTimeout ( "updateTimes()", timeInterval );
-	}	
+	}
 }
 
 // Stop a timer from counting and toggle the button displays.
@@ -382,18 +383,18 @@ function stopTimer(id){
 
 	var dt = new Date();
 	var nowSeconds = Math.floor(dt.getTime()/1000);
-	
+
 	allTimers[id]["started"] = false;
 	allTimers[id]["accumulated"] = allTimers[id]["accumulated"] + (nowSeconds - allTimers[id]["starttime"]);
 	allTimers[id]["starttime"] = 0;
-	
+
 	document.getElementById('logbutton'+id).style.display = "";
 	document.getElementById('startbutton'+id).style.display = "";
 	document.getElementById('stopbutton'+id).style.display = "none";
-	document.getElementById('timeroptions'+id).style.display = "";	
-	
+	document.getElementById('timeroptions'+id).style.display = "";
+
 	allTimers[id]["stopped"] = true;
-	
+
 	activeTimers--;
 }
 
@@ -405,7 +406,7 @@ function addTimer(){
 	timerName = htmlentities(timerName); //Convert HTML entitles.
 
 	if(timerName != ""){
-		var posn = allTimers.length;		
+		var posn = allTimers.length;
 		allTimers[posn] = {};
 		allTimers[posn]["recordid"] = null;
 		allTimers[posn]["started"] = false; // Indicates that a timer is currently counting up.
@@ -415,9 +416,9 @@ function addTimer(){
 		allTimers[posn]["loggedtime"] = 0;  // Total logged time.
 		allTimers[posn]["name"] = timerName;
 		allTimers[posn]["lastlogged"] = "Never";
-		
+
 		addTimerToList(posn);
-		initTimer(posn);	
+		initTimer(posn);
 	}
 	document.getElementById("newtask").value = "Task Name...";
 }
@@ -433,10 +434,10 @@ function logTimer(id){
 	allTimers[id]["loggedtime"] = allTimers[id]["loggedtime"] + allTimers[id]["accumulated"];
 	allTimers[id]["accumulated"] = 0;
 
-	
+
 	// Update the logged time message.
 	document.getElementById('loggedtime'+id).innerHTML = getLoggedTimeStr(allTimers[id]["loggedtime"]);
-	
+
 	// Update the last logged timestamp message.
 	allTimers[id]["lastlogged"] = nowTStamp;
 	document.getElementById('lastlogged'+id).innerHTML = allTimers[id]["lastlogged"];
@@ -445,7 +446,7 @@ function logTimer(id){
 	if(savingEnabled){
 		saveTimerToServer(id);
 	}
-	
+
 	// Update the buttons and time message.
 	document.getElementById('timerdata'+id).innerHTML = "0s";
 	document.getElementById('logbutton'+id).style.display = "none";
@@ -456,10 +457,10 @@ function logTimer(id){
 
 // Clear a timer without logging it.
 function clearTimer(id){
-	
+
 	// Clear the accumulated time.
-	allTimers[id]["accumulated"] = 0;		
-		
+	allTimers[id]["accumulated"] = 0;
+
 	// Update the buttons and time message.
 	document.getElementById('timerdata'+id).innerHTML = "0s";
 	document.getElementById('logbutton'+id).style.display = "none";
@@ -505,10 +506,10 @@ Date.prototype.format = function(f)
 
 // Zero-Fill
 String.prototype.zf = function(l) { return '0'.string(l - this.length) + this; }
-Number.prototype.zf = function(l) { return this.toString().zf(l); } 
+Number.prototype.zf = function(l) { return this.toString().zf(l); }
 
 // VB-like string
-String.prototype.string = function(l) { var s = '', i = 0; while (i++ < l) { s += this; } return s; } 
+String.prototype.string = function(l) { var s = '', i = 0; while (i++ < l) { s += this; } return s; }
 
 // String trim
 String.prototype.trim = function(){  return this.replace(/^\s+|\s+$/g,"");}
