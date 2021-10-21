@@ -1,10 +1,11 @@
 Instructions - Task Timer Light - v 1.0b1 (Beta)
 =================================================
 
+<img src="assets/images/example.jpg" border="0">
+
 Author
 ---------------------
 Sherri Wheeler  (SyntaxSeed.com)
-Project Info: http://syntaxseed.com/project/tasktimerlight/
 
 
 Contributors
