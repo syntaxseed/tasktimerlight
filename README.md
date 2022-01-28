@@ -1,7 +1,9 @@
-Instructions - Task Timer Light - v 1.0b1 (Beta)
+Instructions - Task Timer Light - v 1.1
 =================================================
 
 <img src="assets/images/example.jpg" border="0">
+
+Project: https://github.com/syntaxseed/tasktimerlight
 
 Author
 ---------------------
@@ -29,7 +31,7 @@ Features
 
 Requirements (Server)
 ----------------------
-- PHP 7+
+- PHP 7+, 8.0+
 - Ability for a php script to write to a file on the web server.
 
 

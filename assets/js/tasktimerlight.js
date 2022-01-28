@@ -1,13 +1,13 @@
 /*
 	Description: JS for Task Timer Light
-	Last Modified: Nov 11, 2010
+	Last Modified: Jan 28, 2022
 	Author: Sherri Wheeler
 	License: GPLv3
 */
 
 // ------------- CONFIGURATION -----------------
 
-var savingEnabled = false;	// Indicates whether to use AJAX to save and load timer date to a file on a webserver (Note: to use AJAX, the whole application must be on your webserver, not your local computer).
+var savingEnabled = true;	// Indicates whether to use AJAX to save and load timer date to a file on a webserver (Note: to use AJAX, the whole application must be on your webserver, not your local computer).
 var serviceURL = "http://www.example.com/tasktimerlight/service.php";	// URL to the AJAX service.
 //var serviceURL = "http://localhost:8000/service.php";	// URL to the AJAX service.
 var serviceTimeout = 5000;  // Number of miliseconds to wait for requests to the server to be returned.

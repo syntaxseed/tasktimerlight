@@ -11,8 +11,7 @@ Task Timer Light is an open source application by Sherri Wheeler. You may use th
 Author
 -------------------
 Sherri Wheeler  (SyntaxSeed.com)
-Email: avdeveloper at users dot sourceforge dot net
-Project Info: http://syntaxseed.com/project/tasktimerlight/
+Project Info: https://github.com/syntaxseed/tasktimerlight
 
 
 Contributors
@@ -24,8 +23,6 @@ GNU GENERAL PUBLIC LICENSE
 --------------------------------------------------------
 Version 3, 29 June 2007
 
-AV Book Library - A PHP web database for book information.
-Copyright (C) 2007  Sherri Wheeler
 
  Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>
  Everyone is permitted to copy and distribute verbatim copies
