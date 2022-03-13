@@ -31,7 +31,7 @@ Features
 
 Requirements (Server)
 ----------------------
-- PHP 7+, 8.0+
+- PHP 7+, 8.0+, 8.1+
 - Ability for a php script to write to a file on the web server.
 
 
